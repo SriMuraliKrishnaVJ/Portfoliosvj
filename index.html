@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SVJ — Srimuralikrishna V Jandhyala</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --white: #ffffff;
+    --off-white: #f9f8f6;
+    --black: #111111;
+    --gray: #777777;
+    --light-gray: #e8e6e1;
+    --accent: #1a3a5c;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--white);
+    color: var(--black);
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 1.75;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem 4rem;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--light-gray);
+  }
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: var(--accent);
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    color: var(--gray);
+    text-decoration: none;
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 400;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--black); }
+
+  /* HERO */
+  #hero {
+    padding: 160px 4rem 100px;
+    max-width: 1000px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    min-height: 100vh;
+  }
+  .eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeIn 0.8s ease forwards 0.2s;
+  }
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 5vw, 4rem);
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    opacity: 0;
+    animation: fadeIn 0.8s ease forwards 0.4s;
+  }
+  .hero-divider {
+    width: 40px; height: 2px;
+    background: var(--accent);
+    margin: 2rem 0;
+    opacity: 0;
+    animation: fadeIn 0.8s ease forwards 0.6s;
+  }
+  .hero-desc {
+    color: var(--gray);
+    font-size: 0.92rem;
+    max-width: 360px;
+    opacity: 0;
+    animation: fadeIn 0.8s ease forwards 0.8s;
+  }
+  .hero-ctas {
+    display: flex; gap: 1rem; margin-top: 2.5rem;
+    opacity: 0;
+    animation: fadeIn 0.8s ease forwards 1s;
+  }
+  .btn {
+    display: inline-block;
+    padding: 0.7rem 1.8rem;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.22s;
+  }
+  .btn-dark { background: var(--accent); color: var(--white); }
+  .btn-dark:hover { background: var(--black); }
+  .btn-ghost { background: transparent; color: var(--black); border: 1px solid var(--light-gray); }
+  .btn-ghost:hover { border-color: var(--black); }
+
+  /* HERO CARD */
+  .hero-card {
+    background: var(--off-white);
+    border: 1px solid var(--light-gray);
+    padding: 2.5rem;
+    opacity: 0;
+    animation: fadeIn 0.8s ease forwards 0.6s;
+  }
+  .stat-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+  .stat {
+    padding: 1.5rem;
+    border-top: 1px solid var(--light-gray);
+  }
+  .stat:nth-child(1), .stat:nth-child(2) { border-top: none; }
+  .stat:nth-child(odd) { border-right: 1px solid var(--light-gray); }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.4rem;
+    font-weight: 400;
+    color: var(--accent);
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gray);
+    margin-top: 0.3rem;
+  }
+  .hero-location {
+    margin-top: 0;
+    padding: 1.2rem 1.5rem;
+    border-top: 1px solid var(--light-gray);
+    font-size: 0.78rem;
+    color: var(--gray);
+  }
+
+  /* SECTIONS */
+  .page-section { border-top: 1px solid var(--light-gray); }
+  .section-inner { max-width: 1000px; margin: 0 auto; padding: 5rem 4rem; }
+  .section-header { display: flex; align-items: baseline; gap: 1.5rem; margin-bottom: 3.5rem; }
+  .section-num { font-size: 0.72rem; color: var(--gray); letter-spacing: 0.1em; }
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+  }
+
+  /* TIMELINE */
+  .timeline-item {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 3rem;
+    padding: 2.5rem 0;
+    border-top: 1px solid var(--light-gray);
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .timeline-item.visible { opacity: 1; transform: translateY(0); }
+  .tl-date { font-size: 0.78rem; color: var(--gray); }
+  .tl-org { font-size: 0.78rem; color: var(--accent); margin-top: 0.3rem; }
+  .tl-content h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-bottom: 0.6rem;
+  }
+  .tl-content p { color: var(--gray); font-size: 0.87rem; line-height: 1.8; }
+
+  /* SKILLS */
+  .skills-row {
+    display: flex;
+    gap: 1px;
+    background: var(--light-gray);
+    border: 1px solid var(--light-gray);
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .skills-row.visible { opacity: 1; transform: translateY(0); }
+  .skill-box {
+    flex: 1;
+    background: var(--white);
+    padding: 2.5rem 1.5rem;
+    text-align: center;
+    transition: background 0.2s;
+  }
+  .skill-box:hover { background: var(--off-white); }
+  .skill-icon { font-size: 1.5rem; margin-bottom: 0.8rem; }
+  .skill-box h3 { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 500; margin-bottom: 0.3rem; }
+  .skill-box p { font-size: 0.78rem; color: var(--gray); }
+
+  /* LANGUAGES */
+  .lang-sub { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 500; margin: 3rem 0 1.5rem; }
+  .lang-row {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+    opacity: 0; transform: translateY(18px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .lang-row.visible { opacity: 1; transform: translateY(0); }
+  .lang-pill {
+    display: flex; flex-direction: column; align-items: center;
+    border: 1px solid var(--light-gray);
+    padding: 1.2rem 2rem; min-width: 130px; text-align: center;
+    transition: border-color 0.2s;
+  }
+  .lang-pill:hover { border-color: var(--accent); }
+  .lang-pill-name { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 500; }
+  .lang-pill-level { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--gray); margin-top: 0.3rem; }
+
+  /* AWARDS */
+  .award-item {
+    display: flex; align-items: flex-start; gap: 2rem;
+    padding: 2rem 0; border-top: 1px solid var(--light-gray);
+    opacity: 0; transform: translateY(18px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .award-item.visible { opacity: 1; transform: translateY(0); }
+  .award-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem; color: var(--light-gray);
+    line-height: 1; flex-shrink: 0; width: 44px; font-weight: 400;
+  }
+  .award-item h3 { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 500; margin-bottom: 0.3rem; }
+  .award-item p { font-size: 0.84rem; color: var(--gray); }
+
+  /* CONTACT */
+  #contact { background: var(--accent); }
+  #contact h2 { color: var(--white); }
+  #contact .section-num { color: rgba(255,255,255,0.35); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; margin-top: 3rem; }
+  .contact-grid > p { color: rgba(255,255,255,0.55); font-size: 0.9rem; line-height: 1.8; }
+  .contact-links { display: flex; flex-direction: column; gap: 0.8rem; }
+  .contact-link {
+    display: flex; align-items: center; justify-content: space-between;
+    color: rgba(255,255,255,0.65); text-decoration: none;
+    font-size: 0.84rem; padding: 1rem 1.2rem;
+    border: 1px solid rgba(255,255,255,0.15);
+    transition: all 0.2s;
+  }
+  .contact-link:hover { background: rgba(255,255,255,0.07); color: var(--white); border-color: rgba(255,255,255,0.3); }
+  .contact-link span { font-size: 0.68rem; letter-spacing: 0.05em; opacity: 0.45; }
+
+  /* FOOTER */
+  footer {
+    padding: 1.4rem 4rem;
+    background: var(--black);
+    color: var(--gray);
+    font-size: 0.73rem;
+    display: flex;
+    justify-content: space-between;
+    letter-spacing: 0.04em;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 1.2rem 1.5rem; }
+    .nav-links { display: none; }
+    #hero { grid-template-columns: 1fr; padding: 120px 1.5rem 4rem; min-height: auto; }
+    .hero-card { display: none; }
+    .section-inner { padding: 3.5rem 1.5rem; }
+    .timeline-item { grid-template-columns: 1fr; gap: 0.4rem; }
+    .skills-row { flex-direction: column; gap: 1px; }
+    .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+    footer { flex-direction: column; gap: 0.4rem; padding: 1.2rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#hero" class="logo">SVJ</a>
+  <ul class="nav-links">
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#awards">Awards</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section id="hero">
+  <div>
+    <p class="eyebrow">CS Student &amp; Educator · New London, CT</p>
+    <h1>Srimurali&shy;krishna<br>V Jandhyala</h1>
+    <div class="hero-divider"></div>
+    <p class="hero-desc">Computer Science student at IIITM Gwalior. Java tutor to 42+ students across 10+ countries. Scored 99/100 in CS.</p>
+    <div class="hero-ctas">
+      <a href="#contact" class="btn btn-dark">Get in touch</a>
+      <a href="#experience" class="btn btn-ghost">View work</a>
+    </div>
+  </div>
+  <div class="hero-card">
+    <div class="stat-row">
+      <div class="stat">
+        <div class="stat-num">42+</div>
+        <div class="stat-label">Students tutored</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">10+</div>
+        <div class="stat-label">Countries</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">99</div>
+        <div class="stat-label">CS score /100</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">4.0</div>
+        <div class="stat-label">HS GPA</div>
+      </div>
+    </div>
+    <div class="hero-location">📍 New London, CT · Open to remote</div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="page-section" id="experience">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <h2>Experience</h2>
+    </div>
+    <div class="timeline-item">
+      <div>
+        <div class="tl-date">Apr 2025 — Present</div>
+        <div class="tl-org">SchoolHouse</div>
+      </div>
+      <div class="tl-content">
+        <h3>Computer Science Tutor</h3>
+        <p>Teaching programming languages including Java to students worldwide. Reached 42+ students internationally across the US, UK, Canada, and 8 other countries — building strong coding fundamentals and problem-solving skills in every learner.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section class="page-section" id="education">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <h2>Education</h2>
+    </div>
+    <div class="timeline-item">
+      <div>
+        <div class="tl-date">2025 — 2029</div>
+        <div class="tl-org">IIITM Gwalior</div>
+      </div>
+      <div class="tl-content">
+        <h3>B.Tech — Computer Science Engineering</h3>
+        <p>Pursuing a rigorous undergraduate degree at one of India's premier government-funded technical institutes. Focused on algorithms, systems, and software engineering.</p>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div>
+        <div class="tl-date">2023 — 2025</div>
+        <div class="tl-org">Sri Chaitanya Junior College</div>
+      </div>
+      <div class="tl-content">
+        <h3>High School Diploma — GPA 9.74</h3>
+        <p>Achieved a 4.0 GPA equivalent while studying in India as an American citizen. Secured 99/100 in Computer Science theory and Grade 1 distinction in practical knowledge under the ICSE curriculum.</p>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div>
+        <div class="tl-date">2022 — 2023</div>
+        <div class="tl-org">Johnson Grammar School, Hyderabad</div>
+      </div>
+      <div class="tl-content">
+        <h3>Grade 10 — GPA 9.62</h3>
+        <p>Completed Grade 10 with exceptional results, laying a strong foundation in mathematics, sciences, and computer science.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="page-section" id="skills">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <h2>Skills</h2>
+    </div>
+    <div class="skills-row">
+      <div class="skill-box">
+        <div class="skill-icon">☕</div>
+        <h3>Java</h3>
+        <p>OOP, data structures, algorithms. Primary teaching language.</p>
+      </div>
+      <div class="skill-box">
+        <div class="skill-icon">🐍</div>
+        <h3>Python</h3>
+        <p>Scripting, automation, general-purpose development.</p>
+      </div>
+      <div class="skill-box">
+        <div class="skill-icon">🌐</div>
+        <h3>HTML</h3>
+        <p>Front-end markup and web fundamentals.</p>
+      </div>
+    </div>
+    <p class="lang-sub">Languages Spoken</p>
+    <div class="lang-row">
+      <div class="lang-pill">
+        <div class="lang-pill-name">English</div>
+        <div class="lang-pill-level">Superior</div>
+      </div>
+      <div class="lang-pill">
+        <div class="lang-pill-name">Telugu</div>
+        <div class="lang-pill-level">Distinction</div>
+      </div>
+      <div class="lang-pill">
+        <div class="lang-pill-name">Hindi</div>
+        <div class="lang-pill-level">Intermediate</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AWARDS -->
+<section class="page-section" id="awards">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-num">04</span>
+      <h2>Awards</h2>
+    </div>
+    <div class="award-item">
+      <div class="award-num">01</div>
+      <div>
+        <h3>First Position — CS Competition</h3>
+        <p>Johnson Grammar School Group · Awarded first place in a group computer science competition.</p>
+      </div>
+    </div>
+    <div class="award-item">
+      <div class="award-num">02</div>
+      <div>
+        <h3>The Hour of Code</h3>
+        <p>Code.org · Completed the internationally recognised Hour of Code initiative.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-num">05</span>
+      <h2>Contact</h2>
+    </div>
+    <div class="contact-grid">
+      <p>Open to internships, tutoring inquiries, and collaborations. Based in New London, CT — available for remote opportunities worldwide.</p>
+      <div class="contact-links">
+        <a href="mailto:smkvjand@gmail.com" class="contact-link">smkvjand@gmail.com <span>Email ↗</span></a>
+        <a href="tel:8106582008" class="contact-link">+1 810-658-2008 <span>Call ↗</span></a>
+        <a href="https://linkedin.com/in/srimuralikrishna-v-jandhyala-1b2025360" target="_blank" class="contact-link">LinkedIn <span>Profile ↗</span></a>
+        <a href="https://schoolhouse.world" target="_blank" class="contact-link">SchoolHouse.world <span>Tutor ↗</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2025 Srimuralikrishna V Jandhyala</span>
+  <span>smkvjand@gmail.com</span>
+</footer>
+
+<script>
+  const items = document.querySelectorAll('.timeline-item, .award-item, .skills-row, .lang-row');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  items.forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
